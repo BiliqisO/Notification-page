@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link
+      rel="stylesheet"
+      href="./styles.css"
+    />
+
+    <title>Frontend Mentor | Notifications page</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <div class="notification">
+          <h3>Notifications</h3>
+          <div id="numbers">
+            <div class="number">3</div>
+          </div>
+        </div>
+        <p id="mark">Mark all as read</p>
+      </div>
+      <div
+        id="card-container"
+        class="card-container"
+      ></div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a
+        href="https://www.frontendmentor.io?ref=challenge"
+        target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Biliqis Onikoyi</a>
+    </div>
+    <script>
+      const tags = [
+        {
+          name: "Mark Webber",
+          image: "./assets/images/avatar-mark-webber.webp",
+          comment: "reacted to your recent post",
+          comment1: "My first tournament today!",
+          time: "1m ago",
+          read: false,
+          className: "mark"
+        },
+        {
+          name: "Angela Gray",
+          image: "./assets/images/avatar-angela-gray.webp",
+          comment: "followed you",
+          comment1: "",
+          time: "5m ago",
+          read: false,
+          className: "angela"
+        },
+        {
+          name: "Jacob Thompson",
+          image: "./assets/images/avatar-jacob-thompson.webp",
+          comment: "has joined your group ",
+          comment1: "Chess club",
+          time: "1 day ago",
+          read: false,
+          className: "jacob"
+        },
+        {
+          name: "Rizky Hasanuddin",
+          image: "./assets/images/avatar-rizky-hasanuddin.webp",
+          comment: "sent you a private message",
+          comment1: "",
+          time: "5 days ago",
+          read: true,
+          className: "rizky"
+        },
+        {
+          name: "Kimberly Smith",
+          image: "./assets/images/avatar-kimberly-smith.webp",
+          comment: "commented on your picture",
+          comment1: "",
+          time: "1 week ago",
+          read: true,
+          className: "kimberly"
+          // image2: "./assets/images/image-chess.webp",
+        },
+        {
+          name: "Nathan Peterson",
+          image: "./assets/images/avatar-nathan-peterson.webp",
+          comment: "reacted to your recent post",
+          comment1: "5 end-game strategies to increase your win rate",
+          time: "2 weeks ago",
+          read: true,
+          className: "nathan",
+        },
+        {
+          name: "Anna Kim",
+          image: "./assets/images/avatar-anna-kim.webp",
+          comment: "left the group",
+          comment1: "Chess Club",
+          time: "2 weeks ago",
+          read: true,
+          className: "anna"
+        }
+      ];
+      // style={ isLoggedIn ? { display:'block'} : {display : 'none'} }
+      document.getElementById("card-container").innerHTML = tags.map(
+        (data) => `
+        <div id= "card" class="cards " style= "background-color: ${
+          data.read ? "white" : "hsl(210, 60%, 98%)"
+        }" data-read="${data.read}" data-name = "${data.name}">
+          <div class= "image">
+            <img src="${data.image}"/>
+          </div>
+          <div class="comment ${data.className}" id ="comment"  >
+            <div>
+              <span class="name">${data.name}</span> ${data.comment}
+              <span class="commentt">${data.comment1}</span>
+              <span class="red-tag" 
+              }" style = "background-color: ${
+                data.read ? "white" : "hsl(1, 90%, 64%)"
+              }" ></span>
+            </div>
+            <div class="time">${data.time}</div>
+          </div>
+        </div>`
+      ); 
+      function filterKimberly() {
+        Array.from(document.querySelectorAll(".cards")).forEach((tag) => {
+          if (tag.getAttribute("data-name") === "Kimberly Smith") {
+            tag.style.setProperty(
+              "--after-content",
+              "url('./assets/images/image-chess.webp')"
+            );
+          } else {
+            return null;
+          }
+        });
+      }
+      filterKimberly();
+      function filterRizky() {
+        Array.from(document.querySelectorAll(".cards")).forEach((tal) => {
+          if (tal.getAttribute("data-name") === "Rizky Hasanuddin") {
+            
+            let textBox = document.createElement("div")
+            textBox.innerText = "Hello, thanks for setting up the Chess Club. I've been a member for a few weeks now and I'm already having lots of fun and improving my game."
+            textBox.classList.add("textbox"); 
+            tal.appendChild(textBox)
+          } else {
+            return null;
+          }
+      });
+      }
+      filterRizky();
+      function toggleMarked() {
+        Array.from(document.querySelectorAll(".cards")).forEach(
+          (element, index) => {
+            //work with element
+            if (!element.getAttribute("data-read") === false) {
+              document.getElementById("numbers").innerHTML = null;
+              // `<div class="number">${(element.read = 0)}</div>`;
+              document
+                .querySelectorAll(".red-tag")
+                .forEach((red) => (red.style.backgroundColor = "white"));
+              element.style.backgroundColor = "white";
+              element.setAttribute("data-read", "true");
+            } else {
+              return null;
+            }
+          }
+        );
+      }
+      document.getElementById("mark").addEventListener("click", toggleMarked);
+    </script>
+  </body>
+</html>
+
